@@ -1,0 +1,27 @@
+unit UFind;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls;
+
+type
+  TFindForm = class(TForm)
+    btFind: TButton;
+    edFindMovie: TLabeledEdit;
+    btRemove: TButton;
+  private
+    { Private declarations }
+  public
+    name: string;
+  end;
+
+var
+  FindForm: TFindForm;
+
+implementation
+
+{$R *.dfm}
+
+end.

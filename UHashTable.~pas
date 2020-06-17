@@ -2,7 +2,7 @@ unit UHashTable;
 
 interface
 
-uses ULinkedList, UEntries, Grids, Classes, UMovie;
+uses ULinkedList, UEntries;
 
 const
   TABLE_SIZE = 50;
@@ -15,12 +15,10 @@ type
        function hash(key: TKey): integer;
     public
       constructor Create;
-      function count:integer;
       procedure add(key: TKey; value: TValue);
       function get(key: TKey): TValue;
       function remove(key: TKey): Boolean;
       procedure clear();
-      procedure LoadToSG(SG: TStringGrid);
       procedure saveToFile(fileName: String);
       function loadFromFile(fileName: String): integer;
       destructor Destroy;
@@ -33,16 +31,6 @@ var
 begin
   for i:=0 to TABLE_SIZE-1 do
     table[i] := nil;
-end;
-
-function THashTable.count:integer;
-var
-  i:integer;
-begin
-  Result:= 0;
-  for i:=0 to TABLE_SIZE-1 do
-    if table[i] <> nil then
-      Result:= Result + table[i].count;
 end;
 
 procedure THashTable.add(key: TKey; value: TValue);
@@ -131,32 +119,6 @@ begin
       inc(result);
     end;
   Close(f);
-end;
-
-procedure THashTable.LoadToSG(SG: TStringGrid);
-var
-  i, index:integer;
-  strings: TStrings;
-  head: TListEntry;
-  movie: TMovie;
-begin
-  SG.RowCount:=count+1;
-  i:=0;
-  for index:=0 to TABLE_SIZE-1 do
-    if table[index] <> nil then
-      begin
-        head:= table[index].h;
-        while (head <> nil) do
-          begin
-            inc(i);
-            movie:= head.data.value;
-            SG.Rows[i][0]:= movie.Name;
-            SG.Rows[i][1]:= movie.Producer;
-            SG.Rows[i][2]:= movie.Actors;
-            SG.Rows[i][3]:= movie.Description;
-            head:= head.next;
-          end;
-      end;
 end;
 
 destructor THashTable.Destroy;

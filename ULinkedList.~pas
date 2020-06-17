@@ -2,7 +2,7 @@ unit ULinkedList;
 
 interface
 
-uses UEntries, Classes;
+uses UEntries;
 
 type
   TLinkedList = class
@@ -14,12 +14,10 @@ type
       procedure add(value: TBase);
       function remove(key: TKey): boolean;
       function get(key: TKey): TValue;
-      function count: integer;
       procedure clear;
       function isEmpty: Boolean;
       procedure saveToFile(var f: TFile);
       destructor Destroy; override;
-      property h:TListEntry read head;
   end;
 
 implementation
@@ -28,19 +26,6 @@ constructor TLinkedList.Create;
 begin
     inherited Create;
     head := nil;
-end;
-
-function TLinkedList.count:integer;
-var
-  p: TListEntry;
-begin
-  Result:= 0;
-  p:= head;
-  while (p <> nil) do
-    begin
-      inc(Result);
-      p:= p.next;
-    end;
 end;
 
 procedure TLinkedList.add(value: TBase);
